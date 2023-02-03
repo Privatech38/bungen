@@ -37,8 +37,6 @@ function loadPage() {
         // Append to main div
         box.appendChild(divElementFemale);
         box.appendChild(divElementMale);
-    } else {
-        console.log("box is null");
     }
     
 }

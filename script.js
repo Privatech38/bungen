@@ -36,9 +36,6 @@ function loadPage() {
         box.appendChild(divElementFemale);
         box.appendChild(divElementMale);
     }
-    else {
-        console.log("box is null");
-    }
 }
 function generateSelects(divElement) {
     gens.forEach(function (group) {
