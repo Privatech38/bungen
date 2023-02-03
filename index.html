@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet.css">
-    <script src="script.js"></script>
+    <script src="formHandler.ts"></script>
     <title>BunGen</title>
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,18 +13,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="genForm">
-        <form>
-            <label>Male gen:
-                <select name="mGenE">
-                    <option></option>
-                </select>
-            </label><br>
-            <label>Female gen:
-                <input type="text" id="genF" placeholder="AaBBcCdd" size="8" maxlength="8" required>
-            </label><br>
-        </form>
-        <button onclick="generateChancesAndGraph()">Calculate</button>
+    <div id="forms" class="flex-box">
+        <div id="genFormM">
+            <form>
+                <label>Male DNA:<br>
+                    <select name="mGen1">
+                        <option value="E">E</option>
+                        <option value="Es">Es</option>
+                        <option value="ej">ej</option>
+                        <option value="e">e</option>
+                    </select>
+                    <select name="mGen1">
+                        <option value="E">E</option>
+                        <option value="Es">Es</option>
+                        <option value="ej">ej</option>
+                        <option value="e">e</option>
+                    </select>
+                </label>
+            </form>
+        </div>
+        <div id="genFormF">
+            <form>
+                <label>Female DNA:<br>
+                    <select name="mGen1">
+                        <option value="E">E</option>
+                        <option value="Es">Es</option>
+                        <option value="ej">ej</option>
+                        <option value="e">e</option>
+                    </select>
+                    <select name="mGen1">
+                        <option value="E">E</option>
+                        <option value="Es">Es</option>
+                        <option value="ej">ej</option>
+                        <option value="e">e</option>
+                    </select>
+                </label>
+            </form>
+            
+        </div>
+        <button onclick="generate()">Calculate</button>
     </div>
     <div id="results">
     </div>
