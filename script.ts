@@ -37,21 +37,29 @@ function loadPage() {
         // Append to main div
         box.appendChild(divElementFemale);
         box.appendChild(divElementMale);
+        // Modify button
+        // const calculator = document.getElementById("calculator");
+        // calculator?.lastChild;
     }
     
 }
 
 function generateSelects(divElement: HTMLDivElement): void {
     gens.forEach(group => {
+        let usedGens: string[] = [];
         let selectObject = document.createElement("select");
         group.forEach(firstGen => {
             group.forEach(secondGen => {
+                if (usedGens.includes(secondGen)) {
+                    return;
+                }
                 let genCombo: string = firstGen + " " + secondGen;
                 let optionObject: HTMLOptionElement = document.createElement("option");
                 optionObject.setAttribute("value", genCombo);
                 optionObject.appendChild(document.createTextNode(genCombo));
                 selectObject.appendChild(optionObject);
             });
+            usedGens.push(firstGen);
         });
         divElement.appendChild(selectObject);
         divElement.appendChild(document.createElement("br"));
