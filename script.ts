@@ -128,7 +128,7 @@ function generate(): void {
     const orderedCombos: FullGen[] = countAndOrderCombos(output);
     // Display combos
     console.log("Displaying");
-    const resultsDiv: HTMLElement = document.getElementById("results");
+    const resultsDiv: HTMLElement = document.getElementById("resultsGrid");
     let results: ChildNode[] = [];
     orderedCombos.forEach(combo => {
         let parentNode: HTMLDivElement = document.createElement("div");
@@ -162,6 +162,7 @@ function generate(): void {
         columnStringAmount += " auto"
     }
     resultsDiv.style.gridTemplateColumns = columnStringAmount;
+    document.getElementById("results").style.display = "block";
 
 }
 

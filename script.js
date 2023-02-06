@@ -117,7 +117,7 @@ function generate() {
     const orderedCombos = countAndOrderCombos(output);
     // Display combos
     console.log("Displaying");
-    const resultsDiv = document.getElementById("results");
+    const resultsDiv = document.getElementById("resultsGrid");
     let results = [];
     orderedCombos.forEach(combo => {
         let parentNode = document.createElement("div");
@@ -154,6 +154,7 @@ function generate() {
         columnStringAmount += " auto";
     }
     resultsDiv.style.gridTemplateColumns = columnStringAmount;
+    document.getElementById("results").style.display = "block";
 }
 function createPairs(inputString, allGens, i, output) {
     for (let j = 0; j < allGens[i].length; j++) {
