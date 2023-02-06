@@ -129,7 +129,7 @@ function generate() {
         // Percentage
         let percentageNode = document.createElement("p");
         percentageNode.setAttribute("class", "percentageText");
-        percentageNode.appendChild(document.createTextNode(Math.round(100 * (combo.getAmount / amount)) + "%"));
+        percentageNode.appendChild(document.createTextNode((100 * (combo.getAmount / amount)).toString().substring(0, 4) + "%"));
         parentNode.appendChild(percentageNode);
         results.push(parentNode);
     });

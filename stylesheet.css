@@ -35,20 +35,6 @@ body {
 }
 
 /* Forms */
-#genForm {
-    display: block;
-    width: auto;
-    height: auto;
-    justify-content: center;
-    padding: auto;
-    margin: auto;
-}
-
-#genForm select {
-    width: 20px;
-    height: 10px;
-}
-
 .flex-box {
     display: flex;
     flex-direction: row;
