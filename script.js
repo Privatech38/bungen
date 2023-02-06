@@ -133,7 +133,28 @@ function generate() {
         results.push(parentNode);
     });
     resultsDiv.replaceChildren(...results);
-    console.log("Ending");
+    // Change grid layout
+    const childAmount = resultsDiv.childNodes.length;
+    let columnAmount = 0;
+    if (childAmount % 4 == 0) {
+        columnAmount = 4;
+    }
+    else if (childAmount % 3 == 0) {
+        columnAmount = 3;
+    }
+    else if (childAmount % 2 == 0) {
+        columnAmount = 2;
+    }
+    else {
+        columnAmount = 1;
+    }
+    let columnStringAmount = "";
+    for (let i = 0; i < columnAmount; i++) {
+        columnStringAmount += " auto";
+    }
+    console.log("current columns: " + resultsDiv.style.gridTemplateColumns);
+    resultsDiv.style.gridTemplateColumns = columnStringAmount;
+    console.log("chaning to columns: " + columnStringAmount + " new thing: " + resultsDiv.style.gridTemplateColumns);
 }
 function createPairs(inputString, allGens, i, output) {
     for (let j = 0; j < allGens[i].length; j++) {
