@@ -113,55 +113,17 @@ function generate(): void {
         console.log("combinedGens are null");
         return;
     }
-    let fullGens: FullGen[] = [];
     console.log("Starting value thing");
-    const cartesian: Function = (...arrays: any) => {
-        arrays.reduce((accumulator:any, currentValue:any) => 
-        accumulator.flatMap((d:any) => {
-            //console.log(d);
-            currentValue.map((e:any) => [d, e].flat());
-        }));
-        console.log(arrays);
-    };
-    const output: string[][] = cartesian(combinedGens);
-    output.forEach(value => console.log(value));
+    let output: string[]= [];
+    createPairs("", combinedGens, 0, output);
 }
 
 function createPairs(inputString: string, allGens: string[][], i: number, output: string[]) {
     for (let j = 0; j < allGens[i].length; j++) {
         if (i == allGens.length - 1) {
             output.push(inputString + allGens[i][j]);
-            console.log("Pushed: " + inputString + allGens[i][j]);
             continue;
         }
-        createPairs(inputString + allGens[i][j], allGens, i, output);
+        createPairs(inputString + allGens[i][j], allGens, i + 1, output);
     }
-}
-
-function createPairs1(inputString: string, genCombos: string[]): string[] {
-    let createdDNA: string[] = [];
-    genCombos.forEach(genCombo => {
-        createdDNA.push(inputString + genCombo);
-    });
-    return createdDNA;
-}
-
-function idkf(yes:string[][]): any {
-    let combos: string[] = [];
-    for (let i = 0; i < yes[0].length; i++) {
-        const element1 = yes[0][i];
-        for (let j = 0; j < yes[1].length; j++) {
-            const element2 = yes[1][j];
-            for (let k = 0; k < yes[2].length; k++) {
-                const element3 = yes[2][k];
-                combos.push(element1+element2+element3);
-            }
-        }
-    }
-}
-
-function createDNA(genCombos: string[][]): string[] {
-    let createdDNACombos: string[] = [];
-
-    return createdDNACombos;
 }

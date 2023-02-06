@@ -104,15 +104,18 @@ function generate() {
         console.log("combinedGens are null");
         return;
     }
-    let fullGens = [];
     console.log("Starting value thing");
-    const cartesian = (...arrays) => {
-        arrays.reduce((accumulator, currentValue) => accumulator.flatMap((d) => {
-            //console.log(d);
-            currentValue.map((e) => [d, e].flat());
-        }));
-        console.log(arrays);
-    };
-    const output = cartesian(combinedGens);
-    output.forEach(value => console.log(value));
+    let output = [];
+    createPairs("", combinedGens, 0, output);
+}
+function createPairs(inputString, allGens, i, output) {
+    console.log("i is: " + i);
+    for (let j = 0; j < allGens[i].length; j++) {
+        if (i == allGens.length - 1) {
+            output.push(inputString + allGens[i][j]);
+            console.log("Pushed: " + inputString + allGens[i][j]);
+            continue;
+        }
+        createPairs(inputString + allGens[i][j], allGens, i + 1, output);
+    }
 }
