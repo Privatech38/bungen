@@ -161,9 +161,7 @@ function generate(): void {
     for (let i = 0; i < columnAmount; i++) {
         columnStringAmount += " auto"
     }
-    console.log("current columns: " + resultsDiv.style.gridTemplateColumns);
     resultsDiv.style.gridTemplateColumns = columnStringAmount;
-    console.log("chaning to columns: " + columnStringAmount + " new thing: " + resultsDiv.style.gridTemplateColumns);
 
 }
 
