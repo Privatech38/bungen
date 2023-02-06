@@ -32,8 +32,8 @@ function loadPage() {
         // Generate selects
         generateSelects(divElementMale);
         // Append to main div
-        box.appendChild(divElementFemale);
         box.appendChild(divElementMale);
+        box.appendChild(divElementFemale);
     }
     
 }
@@ -64,13 +64,17 @@ class FullGen {
     gen: string;
     amount: number;
 
-    constructor(gen:string, amount = 0) {
+    constructor(gen:string, amount = 1) {
         this.gen = gen;
         this.amount = amount;
     }
 
     public get getAmount() : number {
         return this.amount;
+    }
+
+    public incrementAmount(): void {
+        this.amount += 1;
     }
     
 }
@@ -113,9 +117,34 @@ function generate(): void {
         console.log("combinedGens are null");
         return;
     }
-    console.log("Starting value thing");
+    // Create combos
+    console.log("Creating combos");
     let output: string[]= [];
     createPairs("", combinedGens, 0, output);
+    const amount: number = output.length;
+    // Count and order
+    console.log("Counting and ordering combos");
+    const orderedCombos: FullGen[] = countAndOrderCombos(output);
+    // Display combos
+    console.log("Displaying");
+    const resultsDiv: HTMLElement = document.getElementById("results");
+    orderedCombos.forEach(combo => {
+        let parentNode: HTMLDivElement = document.createElement("div");
+        // Gene
+        let geneNode: HTMLParagraphElement = document.createElement("p");
+        geneNode.setAttribute("class", "geneText");
+        geneNode.appendChild(document.createTextNode(combo.gen));
+        parentNode.appendChild(geneNode);
+        // Br
+        parentNode.appendChild(document.createElement("br"));
+        // Percentage
+        let percentageNode: HTMLParagraphElement = document.createElement("p");
+        percentageNode.setAttribute("class", "percentageText");
+        percentageNode.appendChild(document.createTextNode(Math.round(100*(combo.getAmount/amount)) + "%"));
+        parentNode.appendChild(percentageNode);
+        resultsDiv.appendChild(parentNode);
+    });
+    console.log("Ending");
 }
 
 function createPairs(inputString: string, allGens: string[][], i: number, output: string[]) {
@@ -126,4 +155,30 @@ function createPairs(inputString: string, allGens: string[][], i: number, output
         }
         createPairs(inputString + allGens[i][j], allGens, i + 1, output);
     }
+}
+
+function countAndOrderCombos(combos: string[]): FullGen[] {
+    let fullGens: FullGen[] = [];
+    // Count
+    for (let i = 0; i < combos.length; i++) {
+        const combo = combos[i];
+        if (fullGens.length <= 0) {
+            fullGens.push(new FullGen(combo));
+            continue;
+        }
+        let contains: boolean = false;
+        fullGens.forEach(fullGen => {
+            if (fullGen.gen == combo) {
+                fullGen.incrementAmount();
+                contains = true;
+            }
+        });
+        if (!contains) {
+            console.log("Pushing new Fullgen(" + combo + ")");
+            fullGens.push(new FullGen(combo));
+        }
+    }
+    // Order
+    fullGens.sort((a,b) => a.getAmount - b.getAmount);
+    return fullGens;
 }
