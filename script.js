@@ -117,6 +117,7 @@ function generate() {
     // Display combos
     console.log("Displaying");
     const resultsDiv = document.getElementById("results");
+    let results = [];
     orderedCombos.forEach(combo => {
         let parentNode = document.createElement("div");
         // Gene
@@ -124,15 +125,14 @@ function generate() {
         geneNode.setAttribute("class", "geneText");
         geneNode.appendChild(document.createTextNode(combo.gen));
         parentNode.appendChild(geneNode);
-        // Br
-        parentNode.appendChild(document.createElement("br"));
         // Percentage
         let percentageNode = document.createElement("p");
         percentageNode.setAttribute("class", "percentageText");
         percentageNode.appendChild(document.createTextNode(Math.round(100 * (combo.getAmount / amount)) + "%"));
         parentNode.appendChild(percentageNode);
-        resultsDiv.appendChild(parentNode);
+        results.push(parentNode);
     });
+    resultsDiv.replaceChildren(...results);
     console.log("Ending");
 }
 function createPairs(inputString, allGens, i, output) {
@@ -141,7 +141,7 @@ function createPairs(inputString, allGens, i, output) {
             output.push(inputString + allGens[i][j]);
             continue;
         }
-        createPairs(inputString + allGens[i][j], allGens, i + 1, output);
+        createPairs(inputString + allGens[i][j] + " ", allGens, i + 1, output);
     }
 }
 function countAndOrderCombos(combos) {
