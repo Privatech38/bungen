@@ -3,7 +3,8 @@ const gens: string[][] = [
     ["B", "b"], 
     ["C", "chd", "chl", "ch", "c"],
     ["D", "d"],
-    ["E", "Es", "ej", "e"],
+    ["E", "Es", "En", "ej", "e"],
+    ["M", "m"],
     ["V", "v"],
     ["W", "w"]
 ];
