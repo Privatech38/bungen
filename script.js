@@ -1,6 +1,4 @@
 "use strict";
-let genM;
-let genF;
 const gens = [
     ["A", "At", "a"],
     ["B", "b"],
@@ -13,16 +11,6 @@ const gens = [
 function loadPage() {
     let box = document.getElementById("forms");
     if (box != null) {
-        // MALE
-        let divElementMale = document.createElement("div");
-        divElementMale.setAttribute("id", "maleGens");
-        // Add text
-        let male = document.createElement("label");
-        male.appendChild(document.createTextNode("MALE"));
-        divElementMale.appendChild(male);
-        divElementMale.appendChild(document.createElement("br"));
-        // Generate selects
-        generateSelects(divElementMale);
         // FEMALE
         let divElementFemale = document.createElement("div");
         divElementFemale.setAttribute("id", "femaleGens");
@@ -33,12 +21,19 @@ function loadPage() {
         divElementFemale.appendChild(document.createElement("br"));
         // Generate selects
         generateSelects(divElementFemale);
+        // MALE
+        let divElementMale = document.createElement("div");
+        divElementMale.setAttribute("id", "maleGens");
+        // Add text
+        let male = document.createElement("label");
+        male.appendChild(document.createTextNode("MALE"));
+        divElementMale.appendChild(male);
+        divElementMale.appendChild(document.createElement("br"));
+        // Generate selects
+        generateSelects(divElementMale);
         // Append to main div
         box.appendChild(divElementFemale);
         box.appendChild(divElementMale);
-        // Modify button
-        // const calculator = document.getElementById("calculator");
-        // calculator?.lastChild;
     }
 }
 function generateSelects(divElement) {
@@ -62,5 +57,62 @@ function generateSelects(divElement) {
         divElement.appendChild(document.createElement("br"));
     });
 }
+class FullGen {
+    constructor(gen, amount = 0) {
+        this.gen = gen;
+        this.amount = amount;
+    }
+    get getAmount() {
+        return this.amount;
+    }
+}
 function generate() {
+    let genM = [];
+    let genF = [];
+    let maleGens = document.getElementById("maleGens");
+    let femaleGens = document.getElementById("femaleGens");
+    if (maleGens == null || femaleGens == null) {
+        console.log("Male Gens or Female Gens are null");
+        return;
+    }
+    // Create arrays for 
+    maleGens.childNodes.forEach(selectNode => {
+        if (selectNode instanceof HTMLSelectElement) {
+            genM.push(selectNode.value);
+        }
+    });
+    femaleGens.childNodes.forEach(selectNode => {
+        if (selectNode instanceof HTMLSelectElement) {
+            genF.push(selectNode.value);
+        }
+    });
+    // Create individual combos
+    let combinedGens = [];
+    for (let i = 0; i < genM.length; i++) {
+        const splitMGens = genM[i].split(" ");
+        const splitFGens = genF[i].split(" ");
+        let combinedIndyGens = [];
+        splitMGens.forEach(maleGen => {
+            splitFGens.forEach(femaleGen => {
+                combinedIndyGens.push(maleGen + femaleGen);
+            });
+        });
+        combinedGens.push(combinedIndyGens);
+    }
+    // Create individual chances
+    if (combinedGens.length == 0) {
+        console.log("combinedGens are null");
+        return;
+    }
+    let fullGens = [];
+    console.log("Starting value thing");
+    const cartesian = (...arrays) => {
+        arrays.reduce((accumulator, currentValue) => accumulator.flatMap((d) => {
+            //console.log(d);
+            currentValue.map((e) => [d, e].flat());
+        }));
+        console.log(arrays);
+    };
+    const output = cartesian(combinedGens);
+    output.forEach(value => console.log(value));
 }
